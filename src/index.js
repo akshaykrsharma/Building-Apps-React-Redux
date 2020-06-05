@@ -1,40 +1,12 @@
-import React, { Component, useState, useEffect } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
-function FunctionalComponent() {
-	return <h1>Functional Component</h1>;
-}
-
-const ArrowFunction = (props) => <h3>Arrow Function</h3>;
-
-const HooksFunction = function () {
-	const [count, setCount] = useState(0);
-	return (
-		<div>
-			<p>Hooks: Your count {count}</p>
-			<button
-				style={{ width: 100, height: 44 }}
-				onClick={() => {
-					setCount(count + 1);
-				}}
-			>
-				Click Me
-			</button>
-		</div>
-	);
-};
-
-class ClassComponent extends Component {
-	render() {
-		return <h2>Class Component</h2>;
-	}
-}
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './components/App';
+import './index.css';
 
 render(
-	<div>
-		<FunctionalComponent />
-		<ClassComponent />
-		<ArrowFunction />
-		<HooksFunction />
-	</div>,
+	<Router>
+		<App />
+	</Router>,
 	document.getElementById('app')
 );
