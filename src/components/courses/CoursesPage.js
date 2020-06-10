@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// import * as courseAction from '../../redux/actions/courseAction';
 import { createCourse } from '../../redux/actions/courseAction';
+import { bindActionCreators } from 'redux';
 
 class CoursesPage extends Component {
 	state = {
@@ -15,7 +17,7 @@ class CoursesPage extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.createCourse(this.state.course);
+		this.props.actions(this.state.course);
 	}
 
 	render() {
@@ -39,8 +41,11 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = {
-	createCourse,
+const mapDispatchToProps = (dispatch) => {
+	// createCourse,
+	return {
+		actions: bindActionCreators(createCourse, dispatch),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
