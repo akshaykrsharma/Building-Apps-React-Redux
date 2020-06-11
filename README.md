@@ -72,3 +72,17 @@
 ReduxFlow
 
 ButtonClick-->Action-->Reducer-->MapStateToProps
+
+Mock Api
+
+npm run start:api (just to create mock database db.json)
+for more reference see package.json
+
+To Set URL for API we will use Webpick
+
+const webpack = require('webpack');
+
+const API_BASE_URL = 'http://localhost:3000';
+new webpack.DefinePlugin({
+'process.env.API_URL': JSON.stringify(API_BASE_URL),
+})
