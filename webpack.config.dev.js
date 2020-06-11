@@ -4,7 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 process.env.NODE_ENV = 'development';
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
+//process.env.API_URL = API_BASE_URL;
 
 module.exports = {
 	mode: 'development',
