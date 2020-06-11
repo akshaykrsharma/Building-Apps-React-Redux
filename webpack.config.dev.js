@@ -1,7 +1,10 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 process.env.NODE_ENV = 'development';
+
+const API_BASE_URL = 'http://localhost:3000';
 
 module.exports = {
 	mode: 'development',
@@ -22,6 +25,9 @@ module.exports = {
 		https: false,
 	},
 	plugins: [
+		new webpack.DefinePlugin({
+			'process.env.API_URL': JSON.stringify(API_BASE_URL),
+		}),
 		new HtmlWebpackPlugin({
 			template: 'src/index.html',
 			favicon: 'src/images/im_fav_icon.png',
