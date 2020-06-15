@@ -4,14 +4,14 @@ import { loadCourse } from '../../redux/actions/courseAction';
 import { loadAuthor } from '../../redux/actions/authorAction';
 
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import CourseList from './CourseList';
 
 class CoursesPage extends Component {
 	state = {
-		course: {
-			title: '',
-		},
+		redirectToAddCoursePage: false,
 	};
 
 	componentDidMount() {
@@ -26,25 +26,40 @@ class CoursesPage extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault();
-		this.props.actions
-			.createCourse(this.state.course)
-			.then((res) => {
-				console.log(res);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		// this.props.createCourse(this.state.course)
+		// 	.then((res) => {
+		// 		console.log(res);
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 	});
 	}
 
 	render() {
 		return (
 			<>
+				{this.state.redirectToAddCoursePage && <Redirect to="./course"></Redirect>}
 				<h2>Courses</h2>
+				<button
+					style={{ marginBottom: 20 }}
+					className="btn btn-primary add-course"
+					onClick={() => this.setState({ redirectToAddCoursePage: true })}
+				>
+					Add Course
+				</button>
+
 				<CourseList courses={this.props.courses}></CourseList>
 			</>
 		);
 	}
 }
+
+CoursesPage.propTypes = {
+	courses: PropTypes.array.isRequired,
+	authors: PropTypes.array.isRequired,
+	loadCourse: PropTypes.func.isRequired,
+	loadAuthor: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
 	return {
