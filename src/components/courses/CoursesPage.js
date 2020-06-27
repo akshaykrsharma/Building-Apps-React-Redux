@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import CourseList from './CourseList';
+import Spinner from '../common/Spinner';
 
 class CoursesPage extends Component {
 	state = {
@@ -36,6 +37,8 @@ class CoursesPage extends Component {
 	}
 
 	render() {
+		if (this.props.loading) return <Spinner />;
+
 		return (
 			<>
 				{this.state.redirectToAddCoursePage && <Redirect to="./course"></Redirect>}
@@ -59,6 +62,7 @@ CoursesPage.propTypes = {
 	authors: PropTypes.array.isRequired,
 	loadCourse: PropTypes.func.isRequired,
 	loadAuthor: PropTypes.func.isRequired,
+	loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -74,6 +78,7 @@ const mapStateToProps = (state) => {
 						// eslint-disable-next-line no-mixed-spaces-and-tabs
 				  }),
 		authors: state.authors,
+		loading: state.apiCallsInProgress > 0,
 	};
 };
 

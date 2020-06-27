@@ -1,5 +1,6 @@
 import { CREATE_COURSE, LOAD_COURSE_SUCCESS, CREATE_COURSE_SUCCESS, UPDATE_COURSE_SUCCESS } from './actionTypes';
 import * as courseApi from '../../api/courseApi';
+import { beginApiCall } from './apiStatusAction';
 export function createCourse(course) {
 	return { type: CREATE_COURSE, payload: course };
 }
@@ -17,6 +18,7 @@ export function updateCourseSuccess(course) {
 // Thunk a function which returns another function, It's the work flow of thunk
 export function loadCourse() {
 	return (dispatch) => {
+		dispatch(beginApiCall());
 		courseApi
 			.getCourses()
 			.then((courses) => {
@@ -30,6 +32,7 @@ export function loadCourse() {
 
 export function saveCourse(course) {
 	return function (dispatch) {
+		dispatch(beginApiCall());
 		return courseApi
 			.saveCourse(course)
 			.then((saveCourse) => {
