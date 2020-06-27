@@ -1,6 +1,6 @@
 import { CREATE_COURSE, LOAD_COURSE_SUCCESS, CREATE_COURSE_SUCCESS, UPDATE_COURSE_SUCCESS } from './actionTypes';
 import * as courseApi from '../../api/courseApi';
-import { beginApiCall } from './apiStatusAction';
+import { beginApiCall, apiCallError } from './apiStatusAction';
 export function createCourse(course) {
 	return { type: CREATE_COURSE, payload: course };
 }
@@ -24,8 +24,9 @@ export function loadCourse() {
 			.then((courses) => {
 				dispatch(loadCourseSuccess(courses));
 			})
-			.catch((exp) => {
-				throw exp;
+			.catch((error) => {
+				dispatch(apiCallError(error.message));
+				throw error;
 			});
 	};
 }
@@ -38,8 +39,9 @@ export function saveCourse(course) {
 			.then((saveCourse) => {
 				course.id ? dispatch(updateCourseSuccess(saveCourse)) : dispatch(createCourseSuccess(saveCourse));
 			})
-			.catch((exp) => {
-				throw exp;
+			.catch((error) => {
+				dispatch(apiCallError(error.message));
+				throw error;
 			});
 	};
 }

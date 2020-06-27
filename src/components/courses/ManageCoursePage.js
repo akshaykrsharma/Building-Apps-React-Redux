@@ -44,10 +44,15 @@ function ManageCoursePage({ courses, authors, loadAuthor, loadCourse, saveCourse
 		event.preventDefault();
 		setSaving(true);
 		const saveIt = saveCourse(course);
-		saveIt.then(() => {
-			toast.success('Course saved.');
-			history.push('/courses');
-		});
+		saveIt
+			.then(() => {
+				toast.success('Course saved.');
+				history.push('/courses');
+			})
+			.catch((error) => {
+				setSaving(false);
+				setErrors({ onSave: error.message });
+			});
 	}
 
 	if (courses.length == 0 && authors.length == 0) {

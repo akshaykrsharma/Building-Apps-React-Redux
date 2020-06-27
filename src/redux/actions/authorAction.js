@@ -1,6 +1,6 @@
 import { LOAD_AUTHOR_SUCCESS } from './actionTypes';
 import * as authorApi from '../../api/authorApi';
-import { beginApiCall } from './apiStatusAction';
+import { beginApiCall, apiCallError } from './apiStatusAction';
 
 export function loadAuthorSuccess(course) {
 	return { type: LOAD_AUTHOR_SUCCESS, payload: course };
@@ -15,8 +15,9 @@ export function loadAuthor() {
 			.then((author) => {
 				dispatch(loadAuthorSuccess(author));
 			})
-			.catch((exp) => {
-				throw exp;
+			.catch((error) => {
+				dispatch(apiCallError(error.message));
+				throw error;
 			});
 	};
 }
